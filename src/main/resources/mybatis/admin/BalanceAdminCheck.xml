@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonggoo.batch_mac.balance.balance_check.batch">
+
+    <insert id="insertCustomer" parameterType="com.yonggoo.batch_mac.balance.balance_check.model.Customer">
+        insert into monkey.customer(
+            customer_id
+            , store_id
+            , last_name
+            , first_name
+            , email
+            , address_id
+            , active
+            , create_date
+            , last_update
+
+        )
+        values (
+        #{customerId,jdbcType=INTEGER}
+        ,#{storeId,jdbcType=INTEGER}
+        ,#{lastName,jdbcType=VARCHAR}
+        ,#{firstName,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR}
+        ,#{addressId,jdbcType=INTEGER}
+        ,#{active,jdbcType=INTEGER}
+        ,#{createDate,jdbcType=DATE}
+        ,#{lastUpdate,jdbcType=DATE}
+        )
+    </insert>
+
+
+    <insert id="insertPayment" parameterType="com.yonggoo.batch_mac.balance.balance_check.model.Payment">
+        insert into monkey.Payment(
+          payment_id
+        , customer_id
+        , staff_id
+        , rental_id
+        , amount
+        , payment_date
+        , last_update
+
+        )
+        values (
+        #{paymentId,jdbcType=INTEGER}
+        ,#{customerId,jdbcType=INTEGER}
+        ,#{staffId,jdbcType=INTEGER}
+        ,#{rentalId,jdbcType=INTEGER}
+        ,#{amount,jdbcType=DOUBLE}
+        ,#{paymentDate,jdbcType=DATE}
+        ,#{lastUpdate,jdbcType=DATE}
+        )
+    </insert>
+
+
+
+</mapper>
