@@ -26,70 +26,77 @@ import java.util.Map;
 @Slf4j
 public class BalanceJobConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
-    private static final int chunkSize = 30;
-
-    public BalanceJobConfiguration(JobBuilderFactory jobBuilderFactory,
-                                   StepBuilderFactory stepBuilderFactory) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-    }
+    //외부 데이터 가져오는것 샘플 추가!!!
 
 
-    @Bean
-    public BatchJobPersonItemProcessor processNew() {
-        return new BatchJobPersonItemProcessor();
-    }
+//    private final JobBuilderFactory jobBuilderFactory;
+//    private final StepBuilderFactory stepBuilderFactory;
+//    private static final int chunkSize = 30;
+//
+//    public BalanceJobConfiguration(JobBuilderFactory jobBuilderFactory,
+//                                   StepBuilderFactory stepBuilderFactory) {
+//        this.jobBuilderFactory = jobBuilderFactory;
+//        this.stepBuilderFactory = stepBuilderFactory;
+//    }
+//
+//
+//    @Bean
+//    public BatchJobPersonItemProcessor processNew() {
+//        return new BatchJobPersonItemProcessor();
+//    }
+//
+//    @Bean
+//    public Job importUserJobNew(BatchCompletionNotificationListener listener, Step step1New) {
+//        return jobBuilderFactory.get("importUserJob4")
+//                .incrementer(new RunIdIncrementer())
+//                .listener(listener)
+//                .flow(step1New)
+//                .end()
+//                .build();
+//    }
+//
+//
+//
+//    @Bean
+//    public Step step1New(@Qualifier("myBatisAdminPagingItemReader") MyBatisPagingItemReader myBatisPagingItemReader
+//            ,  @Qualifier("myBatisAdminBatchItemWriter") MyBatisBatchItemWriter myBatisBatchItemWriter
+//    ) throws  Exception  {
+//
+//        return stepBuilderFactory.get("step4")
+//                .<PersonNew, PersonNew> chunk(30)
+//                .reader(myBatisPagingItemReader)
+//                .processor(processNew())
+//                .writer(myBatisBatchItemWriter)
+//                .build();
+//    }
+//
+//
+//    @Bean(name ="myBatisAdminPagingItemReader")
+//    @StepScope
+//    public MyBatisPagingItemReader<Person> tradeDbRead(@Qualifier("mySqlSqlSessionFactory") SqlSessionFactory db2SqlSessionFactory) {
+//
+//        MyBatisPagingItemReader<Person> myBatisPagingItemReader = new MyBatisPagingItemReader<Person>();
+//        Map<String, Object> parameters = new HashMap<>();
+//        myBatisPagingItemReader.setQueryId("selectTestNew");
+//        myBatisPagingItemReader.setSqlSessionFactory(db2SqlSessionFactory);
+//        myBatisPagingItemReader.setParameterValues(parameters);
+//        return myBatisPagingItemReader;
+//    }
+//
+//
+//    @Bean(name ="myBatisAdminBatchItemWriter")
+//    @StepScope
+//    public MyBatisBatchItemWriter<Person> writer(@Qualifier("mySqlAdminSqlSessionFactory")SqlSessionFactory sqlSessionFactory){
+//        MyBatisBatchItemWriter<Person> myBatisBatchItemWriter = new MyBatisBatchItemWriter<Person>();
+//        myBatisBatchItemWriter.setSqlSessionFactory(sqlSessionFactory);
+//        myBatisBatchItemWriter.setStatementId("insertTestNew");
+//        return myBatisBatchItemWriter;
+//    }
 
-    @Bean
-    public Job importUserJobNew(BatchCompletionNotificationListener listener, Step step1New) {
-        return jobBuilderFactory.get("importUserJob4")
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .flow(step1New)
-                .end()
-                .build();
-    }
-
-
-
-    @Bean
-    public Step step1New(@Qualifier("myBatisAdminPagingItemReader") MyBatisPagingItemReader myBatisPagingItemReader
-            ,  @Qualifier("myBatisAdminBatchItemWriter") MyBatisBatchItemWriter myBatisBatchItemWriter
-    ) throws  Exception  {
-
-        return stepBuilderFactory.get("step4")
-                .<PersonNew, PersonNew> chunk(30)
-                .reader(myBatisPagingItemReader)
-                .processor(processNew())
-                .writer(myBatisBatchItemWriter)
-                .build();
-    }
 
 
 
 
-    @Bean(name ="myBatisAdminPagingItemReader")
-    @StepScope
-    public MyBatisPagingItemReader<Person> tradeDbRead(@Qualifier("mySqlSqlSessionFactory") SqlSessionFactory db2SqlSessionFactory) {
-
-        MyBatisPagingItemReader<Person> myBatisPagingItemReader = new MyBatisPagingItemReader<Person>();
-        Map<String, Object> parameters = new HashMap<>();
-        myBatisPagingItemReader.setQueryId("selectTestNew");
-        myBatisPagingItemReader.setSqlSessionFactory(db2SqlSessionFactory);
-        myBatisPagingItemReader.setParameterValues(parameters);
-        return myBatisPagingItemReader;
-    }
-
-
-    @Bean(name ="myBatisAdminBatchItemWriter")
-    @StepScope
-    public MyBatisBatchItemWriter<Person> writer(@Qualifier("mySqlAdminSqlSessionFactory")SqlSessionFactory sqlSessionFactory){
-        MyBatisBatchItemWriter<Person> myBatisBatchItemWriter = new MyBatisBatchItemWriter<Person>();
-        myBatisBatchItemWriter.setSqlSessionFactory(sqlSessionFactory);
-        myBatisBatchItemWriter.setStatementId("insertTestNew");
-        return myBatisBatchItemWriter;
-    }
-
+    //API 데이터 다운로드
+    //https://github.com/jerry92k/yssmap.git
 }

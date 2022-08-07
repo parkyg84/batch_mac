@@ -20,14 +20,11 @@ public class AdminDBConfiguration {
 
 
     @Bean(name="mySqlAdminDataSource")
-    // @Primary
     @ConfigurationProperties(prefix = "spring.trade.datasource")
     public DataSource db2DataSource() {
         return DataSourceBuilder.create().build();
     }
 
-
-    @Primary
     @Bean(name = "mySqlAdminSqlSessionFactory")
     public SqlSessionFactory db2SqlSessionFactory(@Qualifier("mySqlAdminDataSource") DataSource db2DataSource
             , ApplicationContext applicationContext) throws Exception {
@@ -41,12 +38,10 @@ public class AdminDBConfiguration {
     }
 
     @Bean(name = "mySqlAdminSqlSessionTemplate")
-    @Primary
     public SqlSessionTemplate db2SqlSessionTemplate(@Qualifier("mySqlAdminSqlSessionFactory") SqlSessionFactory db2SqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(db2SqlSessionFactory);
     }
 
-    @Primary
     @Bean(name = "tradeAdminTX")
     public PlatformTransactionManager ProductTransactionManager(@Qualifier("mySqlAdminDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
