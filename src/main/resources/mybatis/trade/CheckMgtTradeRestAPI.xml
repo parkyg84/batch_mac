@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonggoo.batch_mac.balance.check_mgt.mapper.trade.CheckMgtTradeMapper">
+    <select id="selectCheckAll" resultType="int">
+        SELECT count(*) cnt
+        FROM monkey.people2
+    </select>
+
+    <select id="selectCheckMgtFilmActorAll" resultType="int">
+        <![CDATA[
+            select count(*) cnt
+            from monkey.film_actor fa
+            where fa.last_update >=#{yesterday} and fa.last_update  < #{today}
+            order by actor_id, film_id
+        ]]>
+    </select>
+
+
+    <select id="selectCheckMgtActor" parameterType="hashmap"	 resultType="com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtActor">
+        select actor_id as actorId
+        , first_name as firstName
+        , last_name as lastName
+        , last_update as lastUpdate
+        FROM monkey.actor a
+        WHERE actor_id in
+        <foreach collection="list" item="element" index="index" open="(" separator=","  close=")">
+            #{element}
+        </foreach>
+        order by actor_id
+    </select>
+
+
+
+
+    <select id="selectCheckMgtActorAll" parameterType="hashmap"	 resultType="com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtActor">
+        select actor_id as actorId
+        , first_name as firstName
+        , last_name as lastName
+        , last_update as lastUpdate
+        FROM monkey.actor a
+        order by actor_id
+    </select>
+
+
+
+
+
+
+
+
+    <select id="selectCheckMgtFilmActor" parameterType="hashmap"	 resultType="com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtFilmActor">
+        <![CDATA[
+                select actor_id as actorId
+                , film_id as filmId
+                , last_update as lastUpdate
+                from monkey.film_actor fa
+                where fa.last_update >=#{yesterday} and fa.last_update  < #{today}
+                order by actor_id, film_id
+                limit #{limit} offset #{offset}
+        ]]>
+    </select>
+
+
+
+
+
+
+    <select id="selectCheckMgtFilm" parameterType="hashmap"	 resultType="com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtFilm">
+        select film_id as filmId
+        , title as title
+        , description as description
+        , release_year as releaseYear
+        from monkey.film f
+        WHERE film_id in
+        <foreach collection="list" item="element" index="index" open="(" separator=","  close=")">
+            #{element}
+        </foreach>
+        order by film_id
+    </select>
+
+
+
+</mapper>

@@ -13,7 +13,7 @@ batch:
 spring:
   datasource:
     common:
-      jdbcUrl: jdbc:log4jdbc:mariadb://localhost:3306/monkey?useSSL=false&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/monkey?useSSL=false&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
       driverClassName: org.mariadb.jdbc.Driver
       username: root
       password: qwer1234

@@ -2,6 +2,7 @@ package com.yonggoo.batch_mac.common.configuration.db;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +16,13 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
+//https://sanghye.tistory.com/26
+//package com.yonggoo.batch_mac.balance.check_mgt.mapper;
 @Configuration
+//@MapperScan(value="com.yonggoo.batch_mac.balance.check_mgt.mapper.trade")
+
+
+@MapperScan(value = "com.yonggoo.batch_mac.balance.check_mgt.mapper.trade", sqlSessionFactoryRef = "mySqlSqlSessionFactory")
 public class TradeDBConfiguration {
 
     private final ApplicationContext applicationContext;
@@ -37,7 +44,11 @@ public class TradeDBConfiguration {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(db2DataSource());
         factoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/mybatis-config.xml"));
+
+        factoryBean.setTypeAliasesPackage("com.yonggoo.batch_mac.balance.check_mgt.mapper.trade");
         factoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/trade/*.xml"));
+
+
         return factoryBean.getObject();
     }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonggoo.batch_mac.balance.check_mgt.mapper.admin.CheckMgtAdminMapper">
+
+    <insert id="insert" parameterType="java.util.List">
+        INSERT INTO monkey.actor_copied (
+        first_name,
+        last_name)
+        VALUES
+        <foreach collection="list" item="element" index="index" open="(" separator="),("  close=")">
+            #{element.firstName},
+            #{element.lastName}
+        </foreach>
+    </insert>
+
+
+    <insert id="insertFilmActorCopied" parameterType="java.util.List">
+        INSERT INTO monkey.film_actor_copied (
+        actor_id
+        , film_id
+        , first_name
+        , last_name
+        , title
+        , description
+        , last_update
+        )
+        VALUES
+        <foreach collection="list" item="element" index="index" open="(" separator="),("  close=")">
+            #{element.actorId},
+            #{element.filmId},
+            #{element.firstName},
+            #{element.lastName},
+            #{element.title},
+            #{element.description},
+            #{element.lastUpdate}
+        </foreach>
+    </insert>
+
+</mapper>

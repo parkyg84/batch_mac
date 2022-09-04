@@ -18,4 +18,25 @@ public class ChekMgtItemProcessor implements ItemProcessor<CheckMgtPerson, Check
         log.info("Converting (" + person + ") into (" + transformedPerson + ")");
         return transformedPerson;
     }
+
+
+
+
+
+//    @Override
+//    public CheckMgtPerson process(final CheckMgtPerson person) throws Exception {
+//
+//        final String firstName = person.getFirstName().toUpperCase();
+//        final String lastName = person.getLastName().toUpperCase();
+//        final CheckMgtPerson transformedPerson = new CheckMgtPerson(firstName, lastName);
+//
+//        log.info("Converting (" + person + ") into (" + transformedPerson + ")");
+//        return transformedPerson;
+//    }
+
+
+
+
+
+
 }
