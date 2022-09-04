@@ -1,19 +1,13 @@
 package com.yonggoo.batch_mac.controller;
 
-import com.yonggoo.batch_mac.balance.balance_job.batch.BalanceJobConfiguration;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.JobOperator;
-import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +54,7 @@ public class JobController {
 
         Long jobId;
 
-        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("balanceCheckJob");
+        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
 
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLong("time", System.currentTimeMillis())
@@ -73,13 +67,13 @@ public class JobController {
 
 
 
-
-
+//메타테이블 스키마!!
+    //https://docs.spring.io/spring-batch/docs/current/reference/html/schema-appendix.html#metaDataSchema
 
     @RequestMapping(value="/stop")
     @ResponseBody
     public String stopBatchJobs() throws Exception {
-        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("balanceCheckJob");
+        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
         for (JobExecution jobExecution : jobExecutionsSet) {
 
             if (jobExecution.getStatus() == BatchStatus.STARTED || jobExecution.getStatus() == BatchStatus.STARTING) {
@@ -91,6 +85,42 @@ public class JobController {
         return "Cancled";
     }
 
+//https://docs.spring.io/spring-batch/docs/current/reference/html/job.html
+
+//    @Controller
+//    public class JobLauncherController {
+//
+//        @Autowired
+//        JobLauncher jobLauncher;
+//
+//        @Autowired
+//        Job job;
+//
+//        @RequestMapping("/jobLauncher.html")
+//        public void handle() throws Exception{
+//            jobLauncher.run(job, new JobParameters());
+//        }
+//    }
+
+
+
+
+
+//    Job job = new SimpleJob();
+//job.setRestartable(false);
+//
+//    JobParameters jobParameters = new JobParameters();
+//
+//    JobExecution firstExecution = jobRepository.createJobExecution(job, jobParameters);
+//jobRepository.saveOrUpdate(firstExecution);
+//
+//try {
+//        jobRepository.createJobExecution(job, jobParameters);
+//        fail();
+//    }
+//catch (JobRestartException e) {
+//        // expected
+//    }
 
 
 

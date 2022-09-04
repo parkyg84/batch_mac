@@ -26,7 +26,7 @@ public class TradeDBConfiguration {
 
     @Bean(name="mySqlDataSource")
     @Primary
-    @ConfigurationProperties(prefix = "spring.trade.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource.trade")
     public DataSource db2DataSource() {
         return DataSourceBuilder.create().build();
     }

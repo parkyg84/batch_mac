@@ -1,19 +1,19 @@
-package com.yonggoo.batch_mac.balance.balance_check.batch.processor;
+package com.yonggoo.batch_mac.balance.check_mgt.processor;
 
-import com.yonggoo.batch_mac.balance.balance_check.model.Person;
+import com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtPerson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Slf4j
-public class BatchPersonItemProcessor implements ItemProcessor<Person, Person> {
+public class ChekMgtItemProcessor implements ItemProcessor<CheckMgtPerson, CheckMgtPerson> {
     @Override
-    public Person process(final Person person) throws Exception {
+    public CheckMgtPerson process(final CheckMgtPerson person) throws Exception {
 
         final String firstName = person.getFirstName().toUpperCase();
         final String lastName = person.getLastName().toUpperCase();
-        final Person transformedPerson = new Person(firstName, lastName);
+        final CheckMgtPerson transformedPerson = new CheckMgtPerson(firstName, lastName);
 
         log.info("Converting (" + person + ") into (" + transformedPerson + ")");
         return transformedPerson;

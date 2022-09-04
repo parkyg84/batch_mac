@@ -1,12 +1,13 @@
-package com.yonggoo.batch_mac.balance.balance_job.model;
+package com.yonggoo.batch_mac.balance.check_mgt.model;
 
-public class PersonNew {
+public class CheckMgtPerson {
+
     private String lastName;
     private String firstName;
 
-    public PersonNew() {}
+    public CheckMgtPerson() {}
 
-    public PersonNew(String firstName, String lastName) {
+    public CheckMgtPerson(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -20,7 +21,7 @@ public class PersonNew {
     }
 
     public String getLastName() {
-        return firstName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {

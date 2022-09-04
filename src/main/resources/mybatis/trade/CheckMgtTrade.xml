@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonggoo.batch_mac.balance.check_mgt">
+
+    <select id="selectCheckMgt" parameterType="hashmap"	 resultType="com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtPerson">
+        SELECT firstName as firstName,lastName as lastName
+        FROM monkey.people2
+        ORDER BY id
+        OFFSET #{_skiprows} ROWS FETCH NEXT #{_pagesize} ROWS ONLY
+    </select>
+
+
+
+</mapper>
