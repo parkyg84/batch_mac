@@ -5,12 +5,17 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-batch:
-  job:
-    enabled: false
-    names: checkMgtJob
+
+
 
 spring:
+  batch:
+    jdbc: # schema-mysql.sql 항상 실행
+      initialize-schema: always
+    job:
+      enabled: false
+      names: ${job.name:NONE}
+
   datasource:
     common:
       jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/monkey?useSSL=false&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8

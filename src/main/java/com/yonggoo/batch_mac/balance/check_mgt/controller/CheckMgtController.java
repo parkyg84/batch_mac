@@ -19,73 +19,64 @@ import java.util.Set;
 @RequestMapping(value="/job/balance/checkmgt/collect")
 public class CheckMgtController {
 
-
-    private final CheckMgtService checkMgtService;
-    private final Job job;
-    private final JobLauncher jobLauncher;
-    private final JobExplorer jobExplorer;
-    private final JobOperator jobOperator;
-
-
-    public CheckMgtController(Job job, JobLauncher jobLauncher, JobExplorer jobExplorer, JobOperator jobOperator,CheckMgtService checkMgtService)
-    {
-        this.job = job;
-        this.jobLauncher = jobLauncher;
-        this.jobExplorer = jobExplorer;
-        this.jobOperator = jobOperator;
-        this.checkMgtService = checkMgtService;
-    }
-
-    @RequestMapping(value="/countall")
-    @ResponseBody
-    public String test() throws Exception {
-
-        System.out.println("cnt");
-        System.out.println(checkMgtService.CheckCount());
-
-
-        return "OK";
-    }
+    @Autowired
+    public CheckMgtService checkMgtService;
+//    @Autowired
+//    public Job job;
+    @Autowired
+    public JobLauncher jobLauncher;
+    @Autowired
+    public JobExplorer jobExplorer;
+    @Autowired
+    public JobOperator jobOperator;
 
 
 
-    @RequestMapping(value="/start")
-    @ResponseBody
-    public String startBatchJobs() throws JobParametersInvalidException
-            , JobExecutionAlreadyRunningException
-            , JobRestartException
-            , JobInstanceAlreadyCompleteException
-    {
-
-        JobExecution jobExecution = null;
-
-        Long jobId;
-
-        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
-
-        JobParameters jobParameters = new JobParametersBuilder()
-                .addLong("time", System.currentTimeMillis())
-                .toJobParameters();
-        jobExecution = jobLauncher.run(job, jobParameters);
 
 
-        return "Good";
-    }
+//    @RequestMapping(value="/start")
+//    @ResponseBody
+//    public String startBatchJobs() throws JobParametersInvalidException
+//            , JobExecutionAlreadyRunningException
+//            , JobRestartException
+//            , JobInstanceAlreadyCompleteException
+//    {
+//
+//        JobExecution jobExecution = null;
+//
+//        Long jobId;
+//
+//        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
+//
+//        JobParameters jobParameters = new JobParametersBuilder()
+//                .addLong("time", System.currentTimeMillis())
+//                .toJobParameters();
+//        jobExecution = jobLauncher.run(job, jobParameters);
+//
+//
+//        return jobExecution.getStatus().toString();
+//    }
 
 
-    @RequestMapping(value="/stop")
-    @ResponseBody
-    public String stopBatchJobs() throws Exception {
-        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
-        for (JobExecution jobExecution : jobExecutionsSet) {
 
-            if (jobExecution.getStatus() == BatchStatus.STARTED || jobExecution.getStatus() == BatchStatus.STARTING) {
-                jobOperator.stop(jobExecution.getId());
-                System.out.println( jobExecution.getStatus() + "ID :" + jobExecution.getId());
-            }
-        }
 
-        return "Cancled";
-    }
+//    @RequestMapping(value="/stop")
+//    @ResponseBody
+//    public String stopBatchJobs() throws Exception {
+//
+//        String returnMsg = "";
+//
+//        Set<JobExecution> jobExecutionsSet = jobExplorer.findRunningJobExecutions("checkMgtJob");
+//        for (JobExecution jobExecution : jobExecutionsSet) {
+//
+//            if (jobExecution.getStatus() == BatchStatus.STARTED || jobExecution.getStatus() == BatchStatus.STARTING) {
+//                jobOperator.stop(jobExecution.getId());
+//
+//                returnMsg = jobExecution.getStatus() + "ID :" + jobExecution.getId();
+//            }
+//        }
+//
+//        return returnMsg;
+//    }
 
 }

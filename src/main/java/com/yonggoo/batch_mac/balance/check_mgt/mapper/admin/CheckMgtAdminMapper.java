@@ -19,4 +19,7 @@ public interface CheckMgtAdminMapper {
 
     public void insertFilmActorCopied(Map<String, Object> args) throws Exception;
 
+
+    public void insertTestStep(Map<String, Object> args) throws Exception;
+
 }

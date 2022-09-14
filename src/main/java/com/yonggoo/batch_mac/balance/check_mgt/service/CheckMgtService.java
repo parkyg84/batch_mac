@@ -9,9 +9,11 @@ import com.yonggoo.batch_mac.balance.check_mgt.model.CheckMgtFilmActorVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CheckMgtService {
@@ -95,6 +97,57 @@ public class CheckMgtService {
         map.put("list", list);
 
         checkMgtAdminMapper.insertFilmActorCopied(map);
+
+    }
+
+
+    public void insertTestStep(int step) throws Exception{
+
+        Map<String,Object> map =  new HashMap<String,Object>() ;
+        map.put("step", step);
+        checkMgtAdminMapper.insertTestStep(map);
+
+
+        try {
+            System.out.println("Start..." + new Date());
+            // delay 5 seconds
+            TimeUnit.SECONDS.sleep(30);
+            System.out.println("End..." + new Date());
+
+            // delay 0.5 second
+            //TimeUnit.MICROSECONDS.sleep(500);
+
+            // delay 1 minute
+            //TimeUnit.MINUTES.sleep(1);
+
+        } catch (InterruptedException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
+    }
+
+
+
+
+
+
+    public void testStep() throws Exception{
+
+        try {
+            System.out.println("Start..." + new Date());
+            // delay 5 seconds
+            TimeUnit.SECONDS.sleep(30);
+            System.out.println("End..." + new Date());
+
+            // delay 0.5 second
+            //TimeUnit.MICROSECONDS.sleep(500);
+
+            // delay 1 minute
+            //TimeUnit.MINUTES.sleep(1);
+
+        } catch (InterruptedException e) {
+            System.err.format("IOException: %s%n", e);
+        }
 
     }
 
