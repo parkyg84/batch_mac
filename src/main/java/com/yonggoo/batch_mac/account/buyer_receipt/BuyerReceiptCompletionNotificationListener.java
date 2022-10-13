@@ -10,10 +10,7 @@ public class BuyerReceiptCompletionNotificationListener implements JobExecutionL
 
     @Override
     public void beforeJob(JobExecution jobExecution) {
-
         logger.info("Called beforeJob().");
-
-
     }
     
 
@@ -22,6 +19,5 @@ public class BuyerReceiptCompletionNotificationListener implements JobExecutionL
         logger.info("Called afterJob().");
         logger.info(jobExecution.getFailureExceptions().toString());
         logger.info(jobExecution.getStepExecutions().toString());
-
     }
 }

@@ -1,5 +1,6 @@
 package com.yonggoo.batch_mac.balance.check_mgt;
 import com.yonggoo.batch_mac.balance.check_mgt.service.CheckMgtService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -8,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,26 +18,25 @@ import org.springframework.context.annotation.Configuration;
 //https://data-make.tistory.com/748
 //https://renuevo.github.io/spring/batch/spring-batch-chapter-3/
 
-
-//@Configuration
+@Configuration
+@RequiredArgsConstructor
+@Qualifier("CheckMgtConfiguration")
 @Slf4j
 public class CheckMgtConfiguration {
 
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
-    @Autowired
-    public StepBuilderFactory stepBuilderFactory;
 
-    @Autowired
-    public CheckMgtService checkMgtService;
+    public final JobBuilderFactory jobBuilderFactory;
+    public final StepBuilderFactory stepBuilderFactory;
+    public final CheckMgtService checkMgtService;
 
     private static final int chunkSize = 30;
 
 
-    @Bean(name = "checkMgtJob")
+
+
+    @Bean(name = "checkCollectJob")
     public Job checkMgtJob() throws Exception {
-        System.out.println("balanceCheckJob start111");
-        return jobBuilderFactory.get("checkMgtJob")
+        return jobBuilderFactory.get("checkCollectJob")
                 .preventRestart()
                 .incrementer(new RunIdIncrementer())
                 .listener(new CheckMgtBatchCompletionNotificationListener())
